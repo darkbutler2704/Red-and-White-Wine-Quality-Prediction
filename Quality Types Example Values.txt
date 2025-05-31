@@ -1,0 +1,85 @@
+Example Red Wine:
+High Quality:
+fixed_acidity = 8.5
+volatile_acidity = 0.25
+citric_acid = 0.50
+residual_sugar = 2.5
+chlorides = 0.04
+free_sulfur_dioxide = 20
+total_sulfur_dioxide = 40
+density = 0.99
+pH = 3.3
+sulphates = 0.85
+alcohol = 13.5
+
+Medium Quality:
+fixed_acidity = 7
+volatile_acidity = 0.5
+citric_acid = 0.3
+residual_sugar = 2.5
+chlorides = 0.05
+free_sulfur_dioxide = 15
+total_sulfur_dioxide = 46
+density = 1.00
+pH = 3.3
+sulphates = 0.6
+alcohol = 10
+
+Low Quality:
+fixed_acidity = 6.1
+volatile_acidity = 0.95
+citric_acid = 0.05
+residual_sugar = 1.5
+chlorides = 0.14
+free_sulfur_dioxide = 10
+total_sulfur_dioxide = 150
+density = 1
+pH = 3.6
+sulphates = 0.35
+alcohol = 8.5
+
+
+Example White Wine:
+Low Quality:
+fixed_acidity = 6.2
+volatile_acidity = 0.55
+citric_acid = 0.25
+residual_sugar = 5.5
+chlorides = 0.06
+free_sulfur_dioxide = 18
+total_sulfur_dioxide = 120
+density = 1
+pH = 3.15
+sulphates = 0.45
+alcohol = 9.2
+
+Medium Quality:
+fixed_acidity = 8
+volatile_acidity = 0.22
+citric_acid = 0.36
+residual_sugar = 5.7
+chlorides = 0.05
+free_sulfur_dioxide = 42
+total_sulfur_dioxide = 150
+density = 0.99
+pH = 3.22
+sulphates = 0.49
+alcohol = 11
+
+High Quality:
+fixed_acidity = 6.3
+volatile_acidity = 0.19       
+citric_acid = 0.41            
+residual_sugar = 3.05
+chlorides = 0.03            
+free_sulfur_dioxide = 32
+total_sulfur_dioxide = 76    
+density = 0.99               
+pH = 3.22
+sulphates = 0.63            
+alcohol = 12.64              
+
+
+
+
+
