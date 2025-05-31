@@ -71,7 +71,7 @@ if "model_evaluated" not in st.session_state or st.session_state.get("last_type"
 
 # Input sliders for prediction
 if wine_type == "Red":
-    st.write("Enter wine's physicochemical properties to predict its quality level (Low, Medium, High).")
+    st.write("Enter red wine's physicochemical properties to predict its quality level (Low, Medium, High).")
     fixed_acidity = st.slider("Fixed Acidity", 4.0, 16.0, 7.0)
     volatile_acidity = st.slider("Volatile Acidity", 0.1, 1.5, 0.5)
     citric_acid = st.slider("Citric Acid", 0.0, 1.0, 0.3)
