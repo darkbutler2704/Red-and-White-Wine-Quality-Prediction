@@ -10,11 +10,11 @@ import seaborn as sns
 import streamlit as st
 import joblib
 
-# Streamlit UI
+#Streamlit UI
 st.title("🍷 Wine Quality Prediction")
 wine_type = st.selectbox("Select Wine Type", ["Red", "White"])
 
-# Load dataset based on user selection
+#Load dataset based on user selection
 if wine_type == "Red":
     url = "https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv"
     st.subheader("🔴 Red Wine Selected")
@@ -27,25 +27,17 @@ df = df.drop_duplicates()
 assert df.isnull().sum().sum() == 0, "There are missing values!"
 
 df["quality_label"] = df["quality"].apply(lambda q: "low" if q <= 5 else "medium" if q == 6 else "high")
-
 features_to_scale = df.drop(columns=["quality", "quality_label"])
 scaler = MinMaxScaler()
 scaled_features = pd.DataFrame(scaler.fit_transform(features_to_scale), columns=features_to_scale.columns)
-
 scaled_df = pd.concat([scaled_features.reset_index(drop=True), df[["quality", "quality_label"]].reset_index(drop=True)], axis=1)
-
 X = scaled_df.drop(columns=["quality", "quality_label"])
 y = scaled_df["quality_label"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
-# Unique model filenames for red and white wines
+#Unique model filenames for red and white wines
 MODEL_FILE = f"wine_quality_model_{wine_type.lower()}.pkl"
 SCALER_FILE = f"scaler_{wine_type.lower()}.pkl"
-
-# Unique model filenames for red and white wines
-MODEL_FILE = f"wine_quality_model_{wine_type.lower()}.pkl"
-SCALER_FILE = f"scaler_{wine_type.lower()}.pkl"
-
 try:
     model = joblib.load(MODEL_FILE)
     scaler = joblib.load(SCALER_FILE)
@@ -54,7 +46,6 @@ except FileNotFoundError:
     model.fit(X_train, y_train)
     joblib.dump(model, MODEL_FILE)
     joblib.dump(scaler, SCALER_FILE)
-
 
 if "model_evaluated" not in st.session_state or st.session_state.get("last_type") != wine_type:
     y_pred = model.predict(X_test)
