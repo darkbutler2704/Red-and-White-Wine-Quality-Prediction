@@ -4,6 +4,7 @@ from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.model_selection import cross_val_score
 from tabulate import tabulate
 from imblearn.over_sampling import SMOTE
 import matplotlib.pyplot as plt
@@ -12,7 +13,7 @@ import streamlit as st
 import joblib
 
 #Streamlit UI
-st.title("🍷 Wine Quality Prediction (Tuned Random Forest + SMOTE)")
+st.title("🍷 Wine Quality Prediction 🍷")
 wine_type = st.selectbox("Select Wine Type", ["Red", "White"])
 
 #Load dataset based on user selection either WINE or RED 
@@ -79,6 +80,16 @@ y_pred_encoded = model.predict(X_test)
 y_pred = le.inverse_transform(y_pred_encoded)
 
 if "model_evaluated" not in st.session_state or st.session_state.get("last_type") != wine_type:
+    #Cross-Validation percentage 5 Folds 
+    cv_scores = cross_val_score(model, X_train, y_train_encoded, cv=5, scoring='accuracy')
+    cv_percentages = [f"{score * 100:.2f}%" for score in cv_scores]
+    average_score = np.mean(cv_scores) * 100
+    st.write("🔁 Cross-Validation Accuracy Scores (in %):")
+    for i, score in enumerate(cv_percentages, start=1):
+        st.write(f"Fold {i}: {score}")
+    st.write(f"📊 Average CV Accuracy: {average_score:.2f}%")
+    
+    #Classification Report
     report_dict = classification_report(y_test, y_pred, output_dict=True)
     accuracy = report_dict["accuracy"]
     report_dict["accuracy"] = {
@@ -138,11 +149,12 @@ if st.button("Predict Quality"):
     probabilities = model.predict_proba(scaled_input)[0]
     classes = model.classes_
     class_labels = le.inverse_transform(classes)
-    st.write("🔍 Prediction Confidence:")
     prob_df = pd.DataFrame({
         "Quality (Label)": class_labels,
         "Probability": [f"{p*100:.2f}%" for p in probabilities]
     })
+    prob_df.index = range(1, len(prob_df) + 1)
+    st.write("🔍 Prediction Confidence:")
     st.table(prob_df)
     filtered_df = scaled_df[scaled_df["quality_label"] == prediction]
     st.markdown(f"### 📊 Characteristics of **{prediction.upper()}** Quality Wines")
